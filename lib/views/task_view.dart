@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todaydo/models/task_data.dart';
 import 'package:todaydo/views/add_task_view.dart';
 import 'package:todaydo/views/widgets/tasks_list.dart';
 import 'package:todaydo/models/task.dart';
 
-class TaskView extends StatefulWidget {
-  const TaskView({super.key});
-
-  @override
-  State<TaskView> createState() => _TaskViewState();
-}
-
-class _TaskViewState extends State<TaskView> {
-  List<Task> tasks = [
-    Task(name: 'life gose on'),
-    Task(name: 'shutt the hull up'),
-    Task(name: 'take it easy'),
-  ];
-
+class TaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +19,7 @@ class _TaskViewState extends State<TaskView> {
               child: Container(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: AddTaskScreen((newTaskTitel) {
-                  setState(() {
-                    tasks.add(Task(name: newTaskTitel));
-                    Navigator.pop(context);
-                  });
-                }),
+                child: AddTaskScreen((newTaskTitel) {}),
               ),
             ),
           );
@@ -67,15 +51,16 @@ class _TaskViewState extends State<TaskView> {
                 Text(
                   'ToDayDo',
                   style: TextStyle(
+                    fontStyle: FontStyle.italic,
                     color: Colors.white,
-                    fontSize: 40,
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
             Text(
-              '${tasks.length} Tasks',
+              '${Provider.of<TaskData>(context).tasks.length} tasks',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -90,7 +75,7 @@ class _TaskViewState extends State<TaskView> {
                     Radius.circular(16),
                   ),
                 ),
-                child: TasksList(tasks),
+                child: TasksList(),
               ),
             )
           ],

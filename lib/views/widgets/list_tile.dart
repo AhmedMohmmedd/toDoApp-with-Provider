@@ -4,7 +4,8 @@ class TaskTile extends StatelessWidget {
   final bool ischeakBox;
   final String taskTitel;
   final void Function(bool?) cheakBoxChange;
-  const TaskTile({required this.ischeakBox, required this.taskTitel, required this.cheakBoxChange});
+  final void Function() listTileDelete;
+  const TaskTile({required this.ischeakBox, required this.taskTitel, required this.cheakBoxChange, required this.listTileDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class TaskTile extends StatelessWidget {
       title: Text(
         taskTitel,
         style: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           decoration: ischeakBox ? TextDecoration.lineThrough : null,
         ),
       ),
@@ -21,6 +22,7 @@ class TaskTile extends StatelessWidget {
         value: ischeakBox,
         onChanged: cheakBoxChange,
       ),
+      onLongPress: listTileDelete ,
     );
   }
 }
